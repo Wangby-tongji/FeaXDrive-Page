@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeaXDrive | Project Page</title>
+    <meta
+      name="description"
+      content="FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving"
+    />
+    <meta property="og:title" content="FeaXDrive" />
+    <meta
+      property="og:description"
+      content="Project page for FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/images/overview.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="#top">FeaXDrive</a>
+        <nav class="nav">
+          <a href="#abstract">Abstract</a>
+          <a href="#contributions">Contributions</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <p class="eyebrow">Project Page</p>
+          <h1>
+            FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning
+            for End-to-End Autonomous Driving
+          </h1>
+          <p class="authors">
+            Baoyun Wang · Zhuoren Li · Ming Liu · Xinrui Zhang · Bo Leng · Lu Xiong
+          </p>
+          <p class="affiliation">Tongji University</p>
+          <div class="hero-actions">
+            <a class="button primary" href="assets/pdf/FeaXDrive.pdf" target="_blank" rel="noreferrer">Paper</a>
+            <a class="button" href="https://arxiv.org/abs/2604.12656" target="_blank" rel="noreferrer">arXiv</a>
+            <a class="button" href="static/refs.bib" target="_blank" rel="noreferrer">BibTeX</a>
+            <a class="button" href="https://github.com/Wangby-tongji/FeaXDrive-Page" target="_blank" rel="noreferrer">Code</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <figure class="hero-figure card">
+            <img src="assets/images/overview.png" alt="Overview of FeaXDrive" />
+            <figcaption>
+              Overview of FeaXDrive. Compared with noise-centric diffusion planning,
+              FeaXDrive adopts a trajectory-centric formulation in which the predicted
+              clean trajectory serves as the unified object for feasibility-aware
+              modeling. On this basis, the method combines feasibility-aware training
+              and inference-time drivable-area guidance to enhance trajectory-space
+              feasibility throughout the diffusion planning process.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="abstract" class="section">
+        <div class="container narrow">
+          <h2>Abstract</h2>
+          <p>
+            End-to-end diffusion planning has shown strong potential for autonomous
+            driving, but the physical feasibility of generated trajectories remains
+            insufficiently addressed. In particular, generated trajectories may
+            exhibit local geometric irregularities, violate trajectory-level
+            kinematic constraints, or deviate from the drivable area, indicating
+            that the commonly used noise-centric formulation in diffusion planning
+            is not yet well aligned with the trajectory space where feasibility is
+            more naturally characterized. To address this issue, we propose
+            FeaXDrive, a feasibility-aware trajectory-centric diffusion planning
+            method for end-to-end autonomous driving. The core idea is to treat the
+            clean trajectory as the unified object for feasibility-aware modeling
+            throughout the diffusion process. Built on this trajectory-centric
+            formulation, FeaXDrive integrates adaptive curvature-constrained
+            training to improve intrinsic geometric and kinematic feasibility,
+            drivable-area guidance within reverse diffusion sampling to enhance
+            consistency with the drivable area, and feasibility-aware GRPO
+            post-training to further improve planning performance while balancing
+            trajectory-space feasibility. Experiments on the NAVSIM benchmark show
+            that FeaXDrive achieves strong closed-loop planning performance while
+            substantially improving trajectory-space feasibility. These findings
+            highlight the importance of explicitly modeling trajectory-space
+            feasibility in end-to-end diffusion planning and provide a step toward
+            more reliable and physically grounded autonomous driving planners.
+          </p>
+        </div>
+      </section>
+
+      <section id="contributions" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2>Contributions</h2>
+            <p>
+              FeaXDrive builds a unified feasibility-aware pipeline across training,
+              inference, and post-training in clean trajectory space.
+            </p>
+          </div>
+          <div class="contrib-grid">
+            <article class="card highlight-card">
+              <span class="highlight-index">01</span>
+              <h3>Trajectory-centric feasibility-aware diffusion planning</h3>
+              <p>
+                We propose a trajectory-centric diffusion planning framework with
+                feasibility-aware training and inference for autonomous driving. By
+                treating the clean trajectory as the central object for
+                feasibility-aware modeling throughout the diffusion process, the
+                framework provides a unified interface for training-time
+                feasibility enhancement and inference-time geometric guidance in
+                trajectory space.
+              </p>
+            </article>
+            <article class="card highlight-card">
+              <span class="highlight-index">02</span>
+              <h3>Adaptive differentiable curvature training</h3>
+              <p>
+                We introduce an adaptive differentiable curvature training
+                strategy to improve the intrinsic feasibility of generated
+                trajectories. By directly imposing adaptive curvature constraints
+                on the predicted clean trajectory, the method suppresses local
+                geometric irregularities and curvature spikes while improving
+                trajectory-level kinematic feasibility.
+              </p>
+            </article>
+            <article class="card highlight-card">
+              <span class="highlight-index">03</span>
+              <h3>Drivable-aware sampling guidance</h3>
+              <p>
+                We develop a drivable-aware sampling guidance strategy for
+                diffusion sampling to improve drivable-area consistency during
+                inference. By injecting local road-geometry priors into the clean
+                trajectory at each reverse sampling step, the method enables
+                scene-aware geometric correction within the sampling loop.
+              </p>
+            </article>
+            <article class="card highlight-card">
+              <span class="highlight-index">04</span>
+              <h3>Feasibility-aware GRPO fine-tuning</h3>
+              <p>
+                We further incorporate feasibility-aware Group Relative Policy
+                Optimization (GRPO) fine-tuning into the end-to-end diffusion
+                planner. By optimizing a feasibility-augmented reward that jointly
+                captures benchmark-oriented performance and trajectory-space
+                feasibility preference, this stage further improves planning
+                performance while balancing trajectory-space feasibility.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="method" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Method</h2>
+            <p>
+              The predicted clean trajectory is the shared object for
+              feasibility-aware modeling in training, inference, and post-training.
+            </p>
+          </div>
+
+          <figure class="card media-card architecture-card">
+            <img src="assets/images/architecture.png" alt="Overall architecture of FeaXDrive" />
+            <figcaption>
+              Overall architecture of FeaXDrive. Under a trajectory-centric
+              formulation, the predicted clean trajectory serves as the shared
+              object for feasibility-aware modeling throughout training,
+              inference, and post-training. The method integrates adaptive
+              differentiable curvature-constrained training, drivable-area
+              guidance during reverse diffusion sampling, and feasibility-aware
+              GRPO post-training.
+            </figcaption>
+          </figure>
+
+          <div class="method-grid">
+            <article class="card detail-card">
+              <h3>Adaptive Curvature-Constrained Training</h3>
+              <p>
+                During training, FeaXDrive directly imposes adaptive
+                differentiable curvature constraints on the predicted clean
+                trajectory in trajectory space. This improves intrinsic geometric
+                regularity, suppresses curvature spikes, and enhances
+                trajectory-level kinematic feasibility.
+              </p>
+            </article>
+            <article class="card detail-card">
+              <h3>Constraint-Aware Inference with Drivable-Area Guidance</h3>
+              <p>
+                During reverse diffusion sampling, the current clean trajectory
+                estimate is guided with local road-geometry priors. Using a
+                footprint-level drivable-area objective, the method performs
+                online progressive correction so that the trajectory stays better
+                aligned with the drivable region.
+              </p>
+            </article>
+            <article class="card detail-card">
+              <h3>Feasibility-Aware GRPO Fine-Tuning Optimization</h3>
+              <p>
+                In post-training, FeaXDrive introduces feasibility-aware GRPO to
+                optimize the planner with rewards that jointly reflect benchmark
+                performance and trajectory-space feasibility, further improving
+                the performance-feasibility trade-off.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2>Qualitative Results</h2>
+            <p>
+              Qualitative comparison between the noise-centric baseline and
+              FeaXDrive on representative planning scenes.
+            </p>
+          </div>
+
+          <div class="qual-list">
+            <article class="card qual-card">
+              <div class="qual-meta">
+                <span class="qual-index">Case 1</span>
+                <h3>Local geometric irregularities</h3>
+                <p>
+                  Compared with the baseline, FeaXDrive produces a smoother and
+                  more regular trajectory in trajectory space.
+                </p>
+              </div>
+              <div class="qual-grid">
+                <figure class="comparison-panel">
+                  <div class="panel-label">Baseline</div>
+                  <img src="assets/images/case1_baseline.png" alt="Baseline result for local geometric irregularities" />
+                </figure>
+                <figure class="comparison-panel">
+                  <div class="panel-label success">FeaXDrive</div>
+                  <img src="assets/images/case1_feaxdrive.png" alt="FeaXDrive result for local geometric irregularities" />
+                </figure>
+              </div>
+            </article>
+
+            <article class="card qual-card">
+              <div class="qual-meta">
+                <span class="qual-index">Case 2</span>
+                <h3>Trajectory-level kinematic infeasibility</h3>
+                <p>
+                  FeaXDrive yields a more kinematically feasible plan with better
+                  curvature behavior than the noise-centric baseline.
+                </p>
+              </div>
+              <div class="qual-grid">
+                <figure class="comparison-panel">
+                  <div class="panel-label">Baseline</div>
+                  <img src="assets/images/case2_baseline.png" alt="Baseline result for trajectory-level kinematic infeasibility" />
+                </figure>
+                <figure class="comparison-panel">
+                  <div class="panel-label success">FeaXDrive</div>
+                  <img src="assets/images/case2_feaxdrive.png" alt="FeaXDrive result for trajectory-level kinematic infeasibility" />
+                </figure>
+              </div>
+            </article>
+
+            <article class="card qual-card">
+              <div class="qual-meta">
+                <span class="qual-index">Case 3</span>
+                <h3>Drivable-area inconsistency</h3>
+                <p>
+                  FeaXDrive better aligns the trajectory with the drivable area
+                  and reduces off-road tendency under a challenging scene.
+                </p>
+              </div>
+              <div class="qual-grid">
+                <figure class="comparison-panel">
+                  <div class="panel-label">Baseline</div>
+                  <img src="assets/images/case3_baseline.png" alt="Baseline result for drivable-area inconsistency" />
+                </figure>
+                <figure class="comparison-panel">
+                  <div class="panel-label success">FeaXDrive</div>
+                  <img src="assets/images/case3_feaxdrive.png" alt="FeaXDrive result for drivable-area inconsistency" />
+                </figure>
+              </div>
+            </article>
+          </div>
+
+          <p class="results-summary">
+            From top to bottom, the representative cases show local geometric
+            irregularities, trajectory-level kinematic infeasibility, and
+            drivable-area inconsistency. Compared with the baseline, FeaXDrive
+            produces trajectories that are smoother, more kinematically feasible,
+            and better aligned with the drivable area.
+          </p>
+        </div>
+      </section>
+
+      <section id="citation" class="section">
+        <div class="container narrow">
+          <h2>Citation</h2>
+          <p>If you find this project useful, please cite:</p>
+          <div class="code-block">
+            <pre id="bibtex-block">@article{wang2026feaxdrive,
+  title={FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving},
+  author={Wang, Baoyun and Li, Zhuoren and Liu, Ming and Zhang, Xinrui and Leng, Bo and Xiong, Lu},
+  journal={arXiv preprint arXiv:2604.12656},
+  year={2026}
+}</pre>
+            <button id="copy-bibtex" class="button small">Copy BibTeX</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Project page for FeaXDrive. Built for GitHub Pages.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
