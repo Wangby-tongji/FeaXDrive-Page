@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeaXDrive | Project Page</title>
+    <meta
+      name="description"
+      content="FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving"
+    />
+    <meta property="og:title" content="FeaXDrive" />
+    <meta
+      property="og:description"
+      content="Project page for FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/images/overview.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="#top">FeaXDrive</a>
+        <nav class="nav">
+          <a href="#abstract">Abstract</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <p class="eyebrow">Project Page</p>
+          <h1>
+            FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning
+            for End-to-End Autonomous Driving
+          </h1>
+          <p class="authors">
+            Baoyun Wang* · Zhuoren Li* · Ming Liu · Xinrui Zhang · Bo Leng† · Lu Xiong
+          </p>
+          <p class="affiliation">College of Automotive and Energy Engineering, Tongji University</p>
+          <div class="hero-actions">
+            <a class="button primary" href="assets/pdf/FeaXDrive.pdf" target="_blank" rel="noreferrer">Paper</a>
+            <a class="button" href="static/refs.bib" target="_blank" rel="noreferrer">BibTeX</a>
+            <a class="button" href="https://github.com/yourname/feaxdrive" target="_blank" rel="noreferrer">Code</a>
+          </div>
+          <p class="note">* Equal contribution &nbsp;&nbsp; † Corresponding author</p>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <figure class="hero-figure card">
+            <img src="assets/images/overview.png" alt="Overview figure of FeaXDrive" />
+            <figcaption>
+              FeaXDrive reformulates end-to-end diffusion planning in a trajectory-centric manner and improves feasibility through training, sampling guidance, and post-training optimization.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="abstract" class="section">
+        <div class="container narrow">
+          <h2>Abstract</h2>
+          <p>
+            End-to-end diffusion planning has shown strong potential for autonomous driving, but the physical feasibility of generated trajectories remains insufficiently addressed. FeaXDrive treats the clean trajectory as the unified object for feasibility-aware modeling throughout the diffusion process. Built on this trajectory-centric formulation, it integrates adaptive curvature-constrained training to improve intrinsic geometric and kinematic feasibility, drivable-area guidance within reverse diffusion sampling to enhance consistency with the drivable area, and feasibility-aware GRPO post-training to further improve planning performance while balancing trajectory-space feasibility.
+          </p>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="container">
+          <div class="highlights-grid">
+            <article class="card highlight-card">
+              <span class="highlight-index">01</span>
+              <h3>Trajectory-centric diffusion planning</h3>
+              <p>
+                The planner predicts the clean trajectory directly, making trajectory-space feasibility easier to model than conventional noise-centric parameterization.
+              </p>
+            </article>
+            <article class="card highlight-card">
+              <span class="highlight-index">02</span>
+              <h3>Feasibility-aware training</h3>
+              <p>
+                Adaptive differentiable curvature constraints are imposed during training to reduce geometric spikes and trajectory-level kinematic violations.
+              </p>
+            </article>
+            <article class="card highlight-card">
+              <span class="highlight-index">03</span>
+              <h3>Constraint-aware inference and post-training</h3>
+              <p>
+                Drivable-area guidance and feasibility-aware GRPO further improve drivable compliance while preserving strong closed-loop planning performance.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="method" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Method</h2>
+            <p>The clean trajectory is the shared object across training, inference, and post-training.</p>
+          </div>
+          <div class="two-col">
+            <figure class="card media-card">
+              <img src="assets/images/architecture.png" alt="Architecture of FeaXDrive" />
+              <figcaption>Overall architecture of FeaXDrive.</figcaption>
+            </figure>
+            <div class="stack">
+              <article class="card detail-card">
+                <h3>Adaptive Curvature-Constrained Training</h3>
+                <p>
+                  The model is supervised directly in clean trajectory space and regularized with adaptive curvature constraints to improve intrinsic trajectory feasibility during learning.
+                </p>
+              </article>
+              <article class="card detail-card">
+                <h3>Drivable-Area Guidance</h3>
+                <p>
+                  At each reverse diffusion step, the current clean trajectory estimate is guided using local road geometry so that the generated plan remains more consistent with the drivable area.
+                </p>
+              </article>
+              <article class="card detail-card">
+                <h3>Feasibility-aware GRPO</h3>
+                <p>
+                  Post-training introduces a feasibility-aware policy optimization stage to strengthen the trade-off between benchmark performance and trajectory-space feasibility.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2>Qualitative Results</h2>
+            <p>Three examples comparing the baseline planner and FeaXDrive.</p>
+          </div>
+
+          <div class="card comparison-card">
+            <div class="comparison-tabs" role="tablist" aria-label="Case selection">
+              <button class="tab is-active" data-case="1" aria-selected="true">Case 1</button>
+              <button class="tab" data-case="2" aria-selected="false">Case 2</button>
+              <button class="tab" data-case="3" aria-selected="false">Case 3</button>
+            </div>
+
+            <div class="comparison-grid">
+              <figure class="comparison-panel">
+                <div class="panel-label">Baseline</div>
+                <img id="baseline-image" src="assets/images/case1_baseline.png" alt="Baseline result" />
+              </figure>
+              <figure class="comparison-panel">
+                <div class="panel-label success">FeaXDrive</div>
+                <img id="feaxdrive-image" src="assets/images/case1_feaxdrive.png" alt="FeaXDrive result" />
+              </figure>
+            </div>
+            <p id="case-caption" class="caption">
+              FeaXDrive produces a more feasible trajectory with better geometric regularity and drivable-area consistency.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Additional Visuals</h2>
+            <p>Supporting figures for feasibility and efficiency analysis.</p>
+          </div>
+
+          <div class="gallery-grid">
+            <figure class="card gallery-item">
+              <img src="assets/images/curvature_violation.png" alt="Curvature violation visualization" />
+              <figcaption>Curvature violation analysis.</figcaption>
+            </figure>
+            <figure class="card gallery-item">
+              <img src="assets/images/drivable_area_violation.png" alt="Drivable area violation visualization" />
+              <figcaption>Drivable-area violation analysis.</figcaption>
+            </figure>
+            <figure class="card gallery-item gallery-wide">
+              <img src="assets/images/feaxdrive_latency_breakdown.png" alt="Latency breakdown" />
+              <figcaption>Latency breakdown of FeaXDrive.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="citation" class="section alt">
+        <div class="container narrow">
+          <h2>Citation</h2>
+          <p>If you find this project useful, please cite:</p>
+          <div class="code-block">
+            <pre id="bibtex-block">@article{wang2026feaxdrive,
+  title   = {FeaXDrive: Feasibility-aware Trajectory-Centric Diffusion Planning for End-to-End Autonomous Driving},
+  author  = {Wang, Baoyun and Li, Zhuoren and Liu, Ming and Zhang, Xinrui and Leng, Bo and Xiong, Lu},
+  journal = {Under review},
+  year    = {2026}
+}</pre>
+            <button id="copy-bibtex" class="button small">Copy BibTeX</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built for GitHub Pages. Replace the placeholder code link in <code>index.html</code> with your repository URL before publishing.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
